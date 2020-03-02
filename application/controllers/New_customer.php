@@ -7,15 +7,16 @@ class New_customer extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('Add_customer');
 }
+//Method to view new customer's data
 	public function new_customer()
 	{
 		$this->load->view('new_customer');
 	}
-
+	//Method to add customer
 	public function add_customers(){
 				$data = array();
 				$userData = array();
-					$userData = array(
+				$userData = array(
 				'forol_epwn' => strip_tags($this->input->post('forol_epwn')),
 				'doh' => strip_tags($this->input->post('doh')),
 				'first_name' => strip_tags($this->input->post('first_name')),
@@ -46,6 +47,7 @@ class New_customer extends CI_Controller {
 			}
 }
 
+//Method to delete customer
 public function delete_customer($first,$last)
 {
 	$first = urldecode($first);
@@ -54,7 +56,7 @@ public function delete_customer($first,$last)
 	$this->customers->delete_customers($first,$last);
 	$this->load->view('main');
 }
-
+//Method to delete customer on preview UI
 public function delete_customer_on_preview($first,$last)
 {
 	$first = urldecode($first);
@@ -64,12 +66,14 @@ public function delete_customer_on_preview($first,$last)
 	 $this->get_all_customers();
 }
 
+//Method to update customer data
 public function update_customer($first,$last){
-	define (DB_USER, "root");
-	define (DB_PASSWORD, "");
-	define (DB_DATABASE, "listes");
-	define (DB_HOST, "localhost");
+	define (DB_USER, "xxx");
+	define (DB_PASSWORD, "xxx");
+	define (DB_DATABASE, "xxx");
+	define (DB_HOST, "xxx");
 
+//Connect to db
 	$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 	$mysqli->set_charset("utf8");
 			$first = urldecode($first);
@@ -94,11 +98,13 @@ public function update_customer($first,$last){
 			$mysqli->query($sql);
 }
 
+//Method to update customer by id
 public function update_customer_by_id($id){
 	$this->load->model('customers');
 	$data['customer'] = $this->customers->update_customer_by_id($id);
 }
 
+//Method to get all customers data
 public function get_all_customers()
 {
 	$this->load->model('customers');
@@ -106,6 +112,7 @@ public function get_all_customers()
 	$this->load->view('all_customers',$data);
 }
 
+//Method to find customer's name
 public function find_customer()
 {
 		$full_name = $_POST['full_name'];
@@ -119,6 +126,8 @@ public function find_customer()
 		echo json_encode($datas);
 }
 
+
+//Method to find customer's title
 public function find_customer_title()
 {
 		$full_name = $_POST['title'];
